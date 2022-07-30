@@ -45,6 +45,27 @@ namespace RuTube_downloader
                     .CenterIn(pictureBoxVideoThumbnail.ClientRectangle);
                 e.Graphics.DrawImage(Thumbnail, resizedThumbnailRect);
             }
+
+            if (VideoInfo != null && VideoInfo.Duration.Ticks > 0L)
+            {
+                try
+                {
+                    using (Font fnt = new Font("Lucida Console", 10.0f))
+                    {
+                        TimeSpan hour = new TimeSpan(1, 0, 0);
+                        string videoDurationString = VideoInfo.Duration.ToString(VideoInfo.Duration >= hour ? "h':'mm':'ss" : "m':'ss");
+                        SizeF sz = e.Graphics.MeasureString(videoDurationString, fnt);
+                        float x = pictureBoxVideoThumbnail.Width - sz.Width;
+                        float y = pictureBoxVideoThumbnail.Height - sz.Height;
+                        e.Graphics.FillRectangle(Brushes.Black, new RectangleF(x, y, sz.Width, sz.Height));
+                        e.Graphics.DrawString(videoDurationString, fnt, Brushes.White, new PointF(x, y));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
         }
 
         private void SetVideoInfo(RuTubeVideo video)

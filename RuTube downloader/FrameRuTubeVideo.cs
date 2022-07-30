@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using RuTubeApi;
 using Multi_threaded_downloader;
 using static RuTube_downloader.Utils;
+using System.Collections.Generic;
 
 namespace RuTube_downloader
 {
@@ -112,59 +113,62 @@ namespace RuTube_downloader
             });
         }
 
-        private ContextMenuStrip BuildMenuDownloadList(RuTubeVideo video)
+        private async void OnMenuItemClick(object sender, EventArgs e)
+        {
+            btnDownload.Enabled = false;
+            if (string.IsNullOrEmpty(config.DownloadingDirPath) || string.IsNullOrWhiteSpace(config.DownloadingDirPath))
+            {
+                MessageBox.Show("Не указана папка для скачивания!", "Ошибка!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnDownload.Enabled = true;
+                return;
+            }
+            if (!Directory.Exists(config.DownloadingDirPath))
+            {
+                MessageBox.Show("Папка для скачивания не найдена!", "Ошибка!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnDownload.Enabled = true;
+                return;
+            }
+            if (string.IsNullOrEmpty(config.OutputFileNameFormat) || string.IsNullOrWhiteSpace(config.OutputFileNameFormat))
+            {
+                MessageBox.Show("Не указан формат имени файла!", "Ошибка!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnDownload.Enabled = true;
+                return;
+            }
+
+            string path = config.DownloadingDirPath.EndsWith("\\") ? config.DownloadingDirPath : config.DownloadingDirPath + "\\";
+            string fixedFileName = FixFileName(FormatFileName(config.OutputFileNameFormat, VideoInfo));
+            string fn = $"{path}{fixedFileName}.ts";
+            RuTubeVideoFormat videoFormat = (sender as ToolStripMenuItem).Tag as RuTubeVideoFormat;
+            int errorCode = await DownloadFormat(videoFormat, fn);
+            if (errorCode == 200)
+            {
+                FileInfo fileInfo = new FileInfo(fn);
+                string fileSizeString = fileInfo != null ? $"{fileInfo.Length} байт" : "Не доступно";
+                lblProgress.Text = $"Состояние: Скачано. Размер файла: {fileSizeString}";
+                MessageBox.Show($"{VideoInfo.Title}\nСкачано!", "Успех, батенька!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Код ошибки: {errorCode}\nГугол в помощь, как говоритса!", "Неудача! :'(",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            btnDownload.Enabled = true;
+        }
+
+        private ContextMenuStrip BuildMenuDownloadList(IEnumerable<RuTubeVideoFormat> formats)
         {
             ContextMenuStrip menu = new ContextMenuStrip();
-            foreach (RuTubeVideoFormat format in video.Formats)
+            foreach (RuTubeVideoFormat format in formats)
             {
                 string fmt = $"{format.GetShortInfo()}, {format.Codecs}, {format.ChunkUrls.Count} chunks";
                 ToolStripMenuItem menuItem = new ToolStripMenuItem(fmt);
                 menuItem.Tag = format;
-                menuItem.Click += async (s, e) =>
-                {
-                    btnDownload.Enabled = false;
-                    if (string.IsNullOrEmpty(config.DownloadingDirPath) || string.IsNullOrWhiteSpace(config.DownloadingDirPath))
-                    {
-                        MessageBox.Show("Не указана папка для скачивания!", "Ошибка!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnDownload.Enabled = true;
-                        return;
-                    }
-                    if (!Directory.Exists(config.DownloadingDirPath))
-                    {
-                        MessageBox.Show("Папка для скачивания не найдена!", "Ошибка!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnDownload.Enabled = true;
-                        return;
-                    }
-                    if (string.IsNullOrEmpty(config.OutputFileNameFormat) || string.IsNullOrWhiteSpace(config.OutputFileNameFormat))
-                    {
-                        MessageBox.Show("Не указан формат имени файла!", "Ошибка!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnDownload.Enabled = true;
-                        return;
-                    }
-
-                    string path = config.DownloadingDirPath.EndsWith("\\") ? config.DownloadingDirPath : config.DownloadingDirPath + "\\";
-                    string fn = $"{path}{FixFileName(FormatFileName(config.OutputFileNameFormat, video))}.ts";
-                    RuTubeVideoFormat videoFormat = (s as ToolStripMenuItem).Tag as RuTubeVideoFormat;
-                    int errorCode = await DownloadFormat(videoFormat, fn);
-                    if (errorCode == 200)
-                    {
-                        FileInfo fileInfo = new FileInfo(fn);
-                        string fileSizeString = fileInfo != null ? $"{fileInfo.Length} байт" : "Не доступно";
-                        lblProgress.Text = $"Состояние: Скачано. Размер файла: {fileSizeString}";
-                        MessageBox.Show($"{video.Title}\nСкачано!", "Успех, батенька!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Код ошибки: {errorCode}\nГугол в помощь, как говоритса!", "Неудача! :'(",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    btnDownload.Enabled = true;
-                };
+                menuItem.Click += OnMenuItemClick;
                 menu.Items.Add(menuItem);
             }
             return menu;
@@ -184,7 +188,7 @@ namespace RuTube_downloader
             });
             if (video != null)
             {
-                ContextMenuStrip menu = BuildMenuDownloadList(video);
+                ContextMenuStrip menu = BuildMenuDownloadList(video.Formats);
 
                 Point pt = PointToScreen(new Point(btnDownload.Left + btnDownload.Width, btnDownload.Top));
                 menu.Show(pt.X, pt.Y);

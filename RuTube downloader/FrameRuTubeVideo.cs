@@ -13,10 +13,19 @@ namespace RuTube_downloader
     public partial class FrameRuTubeVideo : UserControl
     {
         public RuTubeVideo VideoInfo { get; private set; }
+        private Image Thumbnail;
 
         public FrameRuTubeVideo(Control parent, RuTubeVideo videoInfo)
         {
             InitializeComponent();
+            Disposed += (s, e) =>
+            {
+                if (Thumbnail != null)
+                {
+                    Thumbnail.Dispose();
+                    Thumbnail = null;
+                }
+            };
 
             Parent = parent;
             SetVideoInfo(videoInfo);
@@ -25,6 +34,17 @@ namespace RuTube_downloader
         private void FrameRuTubeVideo_Load(object sender, EventArgs e)
         {
             lblProgress.Text = null;
+        }
+
+        private void pictureBoxVideoThumbnail_Paint(object sender, PaintEventArgs e)
+        {
+            if (Thumbnail != null)
+            {
+                Rectangle thumbnailRect = new Rectangle(0, 0, Thumbnail.Width, Thumbnail.Height);
+                Rectangle resizedThumbnailRect = thumbnailRect.ResizeTo(pictureBoxVideoThumbnail.ClientSize)
+                    .CenterIn(pictureBoxVideoThumbnail.ClientRectangle);
+                e.Graphics.DrawImage(Thumbnail, resizedThumbnailRect);
+            }
         }
 
         private void SetVideoInfo(RuTubeVideo video)
@@ -41,6 +61,8 @@ namespace RuTube_downloader
                 lblDatePublished.Text = "Дата публикации: " +
                     (video.DatePublished == DateTime.MaxValue ? "Не доступно" :
                     video.DatePublished.ToString("yyyy.MM.dd HH:mm:ss"));
+
+                Thumbnail = video.ImageData != null && video.ImageData.Length > 0 ? Image.FromStream(video.ImageData) : null;
             }
             else
             {
@@ -48,6 +70,7 @@ namespace RuTube_downloader
                 lblChannelName.Text = "Канал: Не доступно";
                 lblDateUploaded.Text = "Дата загрузки: Не доступно";
                 lblDatePublished.Text = "Дата публикации: Не доступно";
+                Thumbnail = null;
             }
         }
 

@@ -212,7 +212,7 @@
             this.ClientSize = new System.Drawing.Size(676, 429);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(500, 378);
+            this.MinimumSize = new System.Drawing.Size(500, 357);
             this.Name = "Form1";
             this.Text = "Скачивалка с рутуба";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);

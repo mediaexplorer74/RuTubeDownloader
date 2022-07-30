@@ -57,7 +57,7 @@ namespace RuTube_downloader
             int chunksCount = chunks.Count;
             progressBarDownload.Value = 0;
             progressBarDownload.Maximum = chunksCount;
-            lblProgress.Text = $"Скачивание чанков видео: 0 / {chunksCount} (0.0%)";
+            lblProgress.Text = $"Скачивание чанков видео: 0 / {chunksCount} (0.0%), {ruTubeVideoFormat.GetShortInfo()}";
             Progress<int> progressDash = new Progress<int>();
             progressDash.ProgressChanged += (s, n) =>
             {
@@ -65,7 +65,8 @@ namespace RuTube_downloader
                 progressBarDownload.Value = val;
                 double percent = 100.0 / chunksCount * val;
                 string percentString = string.Format("{0:F1}", percent);
-                lblProgress.Text = $"Скачивание чанков видео: {val} / {chunksCount}, ({percentString}%)";
+                lblProgress.Text = $"Скачивание чанков видео: {val} / {chunksCount} ({percentString}%)" +
+                    $", {ruTubeVideoFormat.GetShortInfo()}";
             };
 
             return await Task.Run(() =>
@@ -147,12 +148,13 @@ namespace RuTube_downloader
             {
                 FileInfo fileInfo = new FileInfo(fn);
                 string fileSizeString = fileInfo != null ? $"{fileInfo.Length} байт" : "Не доступно";
-                lblProgress.Text = $"Состояние: Скачано. Размер файла: {fileSizeString}";
+                lblProgress.Text = $"Состояние: Скачано. Размер файла: {fileSizeString}. {videoFormat.GetShortInfo()}.";
                 MessageBox.Show($"{VideoInfo.Title}\nСкачано!", "Успех, батенька!",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
+                lblProgress.Text = $"Состояние: Ошибка {errorCode}.";
                 MessageBox.Show($"Код ошибки: {errorCode}\nГугол в помощь, как говоритса!", "Неудача! :'(",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

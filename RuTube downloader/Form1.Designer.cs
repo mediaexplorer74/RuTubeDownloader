@@ -43,16 +43,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxUrlOrId = new System.Windows.Forms.TextBox();
             this.btnSearchByUrlOrId = new System.Windows.Forms.Button();
+            this.groupBoxSettingsFilesAndFolders = new System.Windows.Forms.GroupBox();
+            this.groupBoxSettingsDownloading = new System.Windows.Forms.GroupBox();
+            this.checkBoxUseNumberedFileNames = new System.Windows.Forms.CheckBox();
+            this.checkBoxSaveVideoThumbnail = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBoxSettingsFilesAndFolders.SuspendLayout();
+            this.groupBoxSettingsDownloading.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(6, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 13);
             this.label1.TabIndex = 0;
@@ -61,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 48);
+            this.label2.Location = new System.Drawing.Point(6, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 1;
@@ -71,9 +77,9 @@
             // 
             this.textBoxDownloadingDirPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDownloadingDirPath.Location = new System.Drawing.Point(137, 19);
+            this.textBoxDownloadingDirPath.Location = new System.Drawing.Point(137, 17);
             this.textBoxDownloadingDirPath.Name = "textBoxDownloadingDirPath";
-            this.textBoxDownloadingDirPath.Size = new System.Drawing.Size(467, 20);
+            this.textBoxDownloadingDirPath.Size = new System.Drawing.Size(452, 20);
             this.textBoxDownloadingDirPath.TabIndex = 2;
             this.textBoxDownloadingDirPath.Leave += new System.EventHandler(this.textBoxDownloadingDirPath_Leave);
             // 
@@ -81,16 +87,16 @@
             // 
             this.textBoxFileNameFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFileNameFormat.Location = new System.Drawing.Point(137, 45);
+            this.textBoxFileNameFormat.Location = new System.Drawing.Point(137, 43);
             this.textBoxFileNameFormat.Name = "textBoxFileNameFormat";
-            this.textBoxFileNameFormat.Size = new System.Drawing.Size(382, 20);
+            this.textBoxFileNameFormat.Size = new System.Drawing.Size(367, 20);
             this.textBoxFileNameFormat.TabIndex = 3;
             this.textBoxFileNameFormat.Leave += new System.EventHandler(this.textBoxFileNameFormat_Leave);
             // 
             // btnBrowseDownloadingDirPath
             // 
             this.btnBrowseDownloadingDirPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseDownloadingDirPath.Location = new System.Drawing.Point(610, 17);
+            this.btnBrowseDownloadingDirPath.Location = new System.Drawing.Point(595, 15);
             this.btnBrowseDownloadingDirPath.Name = "btnBrowseDownloadingDirPath";
             this.btnBrowseDownloadingDirPath.Size = new System.Drawing.Size(35, 23);
             this.btnBrowseDownloadingDirPath.TabIndex = 4;
@@ -101,7 +107,7 @@
             // btnSetDefaultFileNameFormat
             // 
             this.btnSetDefaultFileNameFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetDefaultFileNameFormat.Location = new System.Drawing.Point(525, 43);
+            this.btnSetDefaultFileNameFormat.Location = new System.Drawing.Point(510, 41);
             this.btnSetDefaultFileNameFormat.Name = "btnSetDefaultFileNameFormat";
             this.btnSetDefaultFileNameFormat.Size = new System.Drawing.Size(120, 23);
             this.btnSetDefaultFileNameFormat.TabIndex = 5;
@@ -125,12 +131,8 @@
             // tabPageSettings
             // 
             this.tabPageSettings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.tabPageSettings.Controls.Add(this.label2);
-            this.tabPageSettings.Controls.Add(this.btnSetDefaultFileNameFormat);
-            this.tabPageSettings.Controls.Add(this.label1);
-            this.tabPageSettings.Controls.Add(this.btnBrowseDownloadingDirPath);
-            this.tabPageSettings.Controls.Add(this.textBoxDownloadingDirPath);
-            this.tabPageSettings.Controls.Add(this.textBoxFileNameFormat);
+            this.tabPageSettings.Controls.Add(this.groupBoxSettingsDownloading);
+            this.tabPageSettings.Controls.Add(this.groupBoxSettingsFilesAndFolders);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -205,6 +207,58 @@
             this.btnSearchByUrlOrId.UseVisualStyleBackColor = true;
             this.btnSearchByUrlOrId.Click += new System.EventHandler(this.btnSearchByUrlOrId_Click);
             // 
+            // groupBoxSettingsFilesAndFolders
+            // 
+            this.groupBoxSettingsFilesAndFolders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.label1);
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.label2);
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.textBoxFileNameFormat);
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.btnSetDefaultFileNameFormat);
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.textBoxDownloadingDirPath);
+            this.groupBoxSettingsFilesAndFolders.Controls.Add(this.btnBrowseDownloadingDirPath);
+            this.groupBoxSettingsFilesAndFolders.Location = new System.Drawing.Point(9, 6);
+            this.groupBoxSettingsFilesAndFolders.Name = "groupBoxSettingsFilesAndFolders";
+            this.groupBoxSettingsFilesAndFolders.Size = new System.Drawing.Size(636, 73);
+            this.groupBoxSettingsFilesAndFolders.TabIndex = 6;
+            this.groupBoxSettingsFilesAndFolders.TabStop = false;
+            this.groupBoxSettingsFilesAndFolders.Text = "Файлы и папки";
+            // 
+            // groupBoxSettingsDownloading
+            // 
+            this.groupBoxSettingsDownloading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSettingsDownloading.Controls.Add(this.checkBoxSaveVideoThumbnail);
+            this.groupBoxSettingsDownloading.Controls.Add(this.checkBoxUseNumberedFileNames);
+            this.groupBoxSettingsDownloading.Location = new System.Drawing.Point(9, 85);
+            this.groupBoxSettingsDownloading.Name = "groupBoxSettingsDownloading";
+            this.groupBoxSettingsDownloading.Size = new System.Drawing.Size(636, 72);
+            this.groupBoxSettingsDownloading.TabIndex = 7;
+            this.groupBoxSettingsDownloading.TabStop = false;
+            this.groupBoxSettingsDownloading.Text = "Скачивание";
+            // 
+            // checkBoxUseNumberedFileNames
+            // 
+            this.checkBoxUseNumberedFileNames.AutoSize = true;
+            this.checkBoxUseNumberedFileNames.Location = new System.Drawing.Point(18, 19);
+            this.checkBoxUseNumberedFileNames.Name = "checkBoxUseNumberedFileNames";
+            this.checkBoxUseNumberedFileNames.Size = new System.Drawing.Size(256, 17);
+            this.checkBoxUseNumberedFileNames.TabIndex = 0;
+            this.checkBoxUseNumberedFileNames.Text = "Нумеровать файлы с одинаковыми именами";
+            this.checkBoxUseNumberedFileNames.UseVisualStyleBackColor = true;
+            this.checkBoxUseNumberedFileNames.CheckedChanged += new System.EventHandler(this.checkBoxUseNumberedFileNames_CheckedChanged);
+            // 
+            // checkBoxSaveVideoThumbnail
+            // 
+            this.checkBoxSaveVideoThumbnail.AutoSize = true;
+            this.checkBoxSaveVideoThumbnail.Location = new System.Drawing.Point(18, 42);
+            this.checkBoxSaveVideoThumbnail.Name = "checkBoxSaveVideoThumbnail";
+            this.checkBoxSaveVideoThumbnail.Size = new System.Drawing.Size(175, 17);
+            this.checkBoxSaveVideoThumbnail.TabIndex = 1;
+            this.checkBoxSaveVideoThumbnail.Text = "Сохранять картинку от видео";
+            this.checkBoxSaveVideoThumbnail.UseVisualStyleBackColor = true;
+            this.checkBoxSaveVideoThumbnail.CheckedChanged += new System.EventHandler(this.checkBoxSaveVideoThumbnail_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,10 +273,13 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
-            this.tabPageSettings.PerformLayout();
             this.tabPageSearch.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBoxSettingsFilesAndFolders.ResumeLayout(false);
+            this.groupBoxSettingsFilesAndFolders.PerformLayout();
+            this.groupBoxSettingsDownloading.ResumeLayout(false);
+            this.groupBoxSettingsDownloading.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -243,6 +300,10 @@
         private System.Windows.Forms.TextBox textBoxUrlOrId;
         private System.Windows.Forms.Button btnSearchByUrlOrId;
         private System.Windows.Forms.Panel panelVideoBkg;
+        private System.Windows.Forms.GroupBox groupBoxSettingsDownloading;
+        private System.Windows.Forms.CheckBox checkBoxSaveVideoThumbnail;
+        private System.Windows.Forms.CheckBox checkBoxUseNumberedFileNames;
+        private System.Windows.Forms.GroupBox groupBoxSettingsFilesAndFolders;
     }
 }
 

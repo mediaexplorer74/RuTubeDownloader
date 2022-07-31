@@ -23,6 +23,8 @@ namespace RuTube_downloader
             {
                 json["downloadingDirPath"] = config.DownloadingDirPath;
                 json["outputFileNameFormat"] = config.OutputFileNameFormat;
+                json["useNumberedFileNames"] = config.UseNumberedFileNames;
+                json["saveVideoThumbnail"] = config.SaveVideoThumbnail;
             };
             config.Loading += (s, json) =>
             {
@@ -36,11 +38,23 @@ namespace RuTube_downloader
                 {
                     config.OutputFileNameFormat = jt.Value<string>();
                 }
+                jt = json.Value<JToken>("useNumberedFileNames");
+                if (jt != null)
+                {
+                    config.UseNumberedFileNames = jt.Value<bool>();
+                }
+                jt = json.Value<JToken>("saveVideoThumbnail");
+                if (jt != null)
+                {
+                    config.SaveVideoThumbnail = jt.Value<bool>();
+                }
             };
             config.Loaded += (s) =>
             {
                 textBoxDownloadingDirPath.Text = config.DownloadingDirPath;
                 textBoxFileNameFormat.Text = config.OutputFileNameFormat;
+                checkBoxUseNumberedFileNames.Checked = config.UseNumberedFileNames;
+                checkBoxSaveVideoThumbnail.Checked = config.SaveVideoThumbnail;
             };
 
             config.Load();
@@ -131,6 +145,16 @@ namespace RuTube_downloader
         private void textBoxFileNameFormat_Leave(object sender, EventArgs e)
         {
             config.OutputFileNameFormat = textBoxFileNameFormat.Text;
+        }
+
+        private void checkBoxUseNumberedFileNames_CheckedChanged(object sender, EventArgs e)
+        {
+            config.UseNumberedFileNames = checkBoxUseNumberedFileNames.Checked;
+        }
+
+        private void checkBoxSaveVideoThumbnail_CheckedChanged(object sender, EventArgs e)
+        {
+            config.SaveVideoThumbnail = checkBoxSaveVideoThumbnail.Checked;
         }
 
         private void ResizeFrame()

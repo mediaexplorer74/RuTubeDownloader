@@ -1,9 +1,31 @@
 ﻿using System.Drawing;
+using System.IO;
+using Multi_threaded_downloader;
 
 namespace RuTube_downloader
 {
     public static class Helper
     {
+        public static bool SaveToFile(this Stream stream, string filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath) && !string.IsNullOrWhiteSpace(filePath))
+            {
+                try
+                {
+                    using (Stream fileStream = File.OpenWrite(filePath))
+                    {
+                        stream.Position = 0L;
+                        return MultiThreadedDownloader.AppendStream(stream, fileStream);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
+            return false;
+        }
+
         public static Rectangle ResizeTo(this Rectangle source, Size newSize)
         {
             float aspectSource = source.Height / (float)source.Width;

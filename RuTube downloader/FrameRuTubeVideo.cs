@@ -115,7 +115,7 @@ namespace RuTube_downloader
 
             return await Task.Run(() =>
             {
-                if (File.Exists(outputFileName))
+                if (!config.UseNumberedFileNames && File.Exists(outputFileName))
                 {
                     File.Delete(outputFileName);
                 }
@@ -185,12 +185,23 @@ namespace RuTube_downloader
 
             string path = config.DownloadingDirPath.EndsWith("\\") ? config.DownloadingDirPath : config.DownloadingDirPath + "\\";
             string fixedFileName = FixFileName(FormatFileName(config.OutputFileNameFormat, VideoInfo));
-            string fn = $"{path}{fixedFileName}.ts";
+            string outputFilePath = $"{path}{fixedFileName}.ts";
+            if (config.UseNumberedFileNames)
+            {
+                outputFilePath = MultiThreadedDownloader.GetNumberedFileName(outputFilePath);
+            }
             RuTubeVideoFormat videoFormat = (sender as ToolStripMenuItem).Tag as RuTubeVideoFormat;
-            int errorCode = await DownloadFormat(videoFormat, fn);
+            int errorCode = await DownloadFormat(videoFormat, outputFilePath);
             if (errorCode == 200)
             {
-                FileInfo fileInfo = new FileInfo(fn);
+                if (config.SaveVideoThumbnail)
+                {
+                    lblProgress.Text = "Состояние: Сохранение картинки...";
+                    lblProgress.Refresh();
+                    SaveVideoThumbnailToFile(outputFilePath.Substring(0, outputFilePath.Length - 3));
+                }
+
+                FileInfo fileInfo = new FileInfo(outputFilePath);
                 string fileSizeString = fileInfo != null ? $"{fileInfo.Length} байт" : "Не доступно";
                 lblProgress.Text = $"Состояние: Скачано. Размер файла: {fileSizeString}. {videoFormat.GetShortInfo()}.";
                 MessageBox.Show($"{VideoInfo.Title}\nСкачано!", "Успех, батенька!",
@@ -240,6 +251,24 @@ namespace RuTube_downloader
                 menu.Show(pt.X, pt.Y);
             }
             btnDownload.Enabled = true;
+        }
+
+        private bool SaveVideoThumbnailToFile(string filePathWithoutExt)
+        {
+            if (VideoInfo != null && VideoInfo.ImageData != null && VideoInfo.ImageData.Length > 0)
+            {
+                string filePath = filePathWithoutExt + "_thumbnail.jpg";
+                if (config.UseNumberedFileNames)
+                {
+                    filePath = MultiThreadedDownloader.GetNumberedFileName(filePath);
+                }
+                else if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+                return VideoInfo.ImageData.SaveToFile(filePath);
+            }
+            return false;
         }
     }
 }

@@ -47,6 +47,7 @@
             this.groupBoxSettingsDownloading = new System.Windows.Forms.GroupBox();
             this.checkBoxUseNumberedFileNames = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveVideoThumbnail = new System.Windows.Forms.CheckBox();
+            this.checkBoxSaveVideoInfo = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
@@ -228,11 +229,12 @@
             // 
             this.groupBoxSettingsDownloading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSettingsDownloading.Controls.Add(this.checkBoxSaveVideoInfo);
             this.groupBoxSettingsDownloading.Controls.Add(this.checkBoxSaveVideoThumbnail);
             this.groupBoxSettingsDownloading.Controls.Add(this.checkBoxUseNumberedFileNames);
             this.groupBoxSettingsDownloading.Location = new System.Drawing.Point(9, 85);
             this.groupBoxSettingsDownloading.Name = "groupBoxSettingsDownloading";
-            this.groupBoxSettingsDownloading.Size = new System.Drawing.Size(636, 72);
+            this.groupBoxSettingsDownloading.Size = new System.Drawing.Size(636, 93);
             this.groupBoxSettingsDownloading.TabIndex = 7;
             this.groupBoxSettingsDownloading.TabStop = false;
             this.groupBoxSettingsDownloading.Text = "Скачивание";
@@ -258,6 +260,17 @@
             this.checkBoxSaveVideoThumbnail.Text = "Сохранять картинку от видео";
             this.checkBoxSaveVideoThumbnail.UseVisualStyleBackColor = true;
             this.checkBoxSaveVideoThumbnail.CheckedChanged += new System.EventHandler(this.checkBoxSaveVideoThumbnail_CheckedChanged);
+            // 
+            // checkBoxSaveVideoInfo
+            // 
+            this.checkBoxSaveVideoInfo.AutoSize = true;
+            this.checkBoxSaveVideoInfo.Location = new System.Drawing.Point(18, 65);
+            this.checkBoxSaveVideoInfo.Name = "checkBoxSaveVideoInfo";
+            this.checkBoxSaveVideoInfo.Size = new System.Drawing.Size(190, 17);
+            this.checkBoxSaveVideoInfo.TabIndex = 2;
+            this.checkBoxSaveVideoInfo.Text = "Сохранять информацию о видео";
+            this.checkBoxSaveVideoInfo.UseVisualStyleBackColor = true;
+            this.checkBoxSaveVideoInfo.CheckedChanged += new System.EventHandler(this.checkBoxSaveVideoInfo_CheckedChanged);
             // 
             // Form1
             // 
@@ -304,6 +317,7 @@
         private System.Windows.Forms.CheckBox checkBoxSaveVideoThumbnail;
         private System.Windows.Forms.CheckBox checkBoxUseNumberedFileNames;
         private System.Windows.Forms.GroupBox groupBoxSettingsFilesAndFolders;
+        private System.Windows.Forms.CheckBox checkBoxSaveVideoInfo;
     }
 }
 

@@ -25,6 +25,7 @@ namespace RuTube_downloader
                 json["outputFileNameFormat"] = config.OutputFileNameFormat;
                 json["useNumberedFileNames"] = config.UseNumberedFileNames;
                 json["saveVideoThumbnail"] = config.SaveVideoThumbnail;
+                json["saveVideoInfo"] = config.SaveVideoInfo;
             };
             config.Loading += (s, json) =>
             {
@@ -48,6 +49,11 @@ namespace RuTube_downloader
                 {
                     config.SaveVideoThumbnail = jt.Value<bool>();
                 }
+                jt = json.Value<JToken>("saveVideoInfo");
+                if (jt != null)
+                {
+                    config.SaveVideoInfo = jt.Value<bool>();
+                }
             };
             config.Loaded += (s) =>
             {
@@ -55,6 +61,7 @@ namespace RuTube_downloader
                 textBoxFileNameFormat.Text = config.OutputFileNameFormat;
                 checkBoxUseNumberedFileNames.Checked = config.UseNumberedFileNames;
                 checkBoxSaveVideoThumbnail.Checked = config.SaveVideoThumbnail;
+                checkBoxSaveVideoInfo.Checked = config.SaveVideoInfo;
             };
 
             config.Load();
@@ -155,6 +162,11 @@ namespace RuTube_downloader
         private void checkBoxSaveVideoThumbnail_CheckedChanged(object sender, EventArgs e)
         {
             config.SaveVideoThumbnail = checkBoxSaveVideoThumbnail.Checked;
+        }
+
+        private void checkBoxSaveVideoInfo_CheckedChanged(object sender, EventArgs e)
+        {
+            config.SaveVideoInfo = checkBoxSaveVideoInfo.Checked;
         }
 
         private void ResizeFrame()

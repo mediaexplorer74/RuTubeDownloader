@@ -194,11 +194,19 @@ namespace RuTube_downloader
             int errorCode = await DownloadFormat(videoFormat, outputFilePath);
             if (errorCode == 200)
             {
+                string outputFilePathWithoutExt = outputFilePath.Substring(0, outputFilePath.Length - 3);
                 if (config.SaveVideoThumbnail)
                 {
                     lblProgress.Text = "Состояние: Сохранение картинки...";
                     lblProgress.Refresh();
-                    SaveVideoThumbnailToFile(outputFilePath.Substring(0, outputFilePath.Length - 3));
+                    SaveVideoThumbnailToFile(outputFilePathWithoutExt);
+                }
+
+                if (config.SaveVideoInfo)
+                {
+                    lblProgress.Text = "Состояние: Сохранение информации...";
+                    lblProgress.Refresh();
+                    SaveVideoInfoToFile(outputFilePathWithoutExt);
                 }
 
                 FileInfo fileInfo = new FileInfo(outputFilePath);
@@ -267,6 +275,38 @@ namespace RuTube_downloader
                     File.Delete(filePath);
                 }
                 return VideoInfo.ImageData.SaveToFile(filePath);
+            }
+            return false;
+        }
+
+        private bool SaveVideoInfoToFile(string filePathWithoutExt)
+        {
+            if (VideoInfo != null)
+            {
+                try
+                {
+                    string filePath = filePathWithoutExt + "_info.txt";
+                    if (config.UseNumberedFileNames)
+                    {
+                        filePath = MultiThreadedDownloader.GetNumberedFileName(filePath);
+                    }
+                    else if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
+                    string t = $"{VideoInfo}\n";
+                    if (VideoInfo.ChannelOwned != null)
+                    {
+                        t += $"Channel info:\n{VideoInfo.ChannelOwned}\n";
+                    }
+                    File.WriteAllText(filePath, t);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
             }
             return false;
         }

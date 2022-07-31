@@ -49,6 +49,7 @@ namespace RuTube_downloader
         public string OutputFileNameFormat { get; set; }
         public bool UseNumberedFileNames { get; set; }
         public bool SaveVideoThumbnail { get; set; }
+        public bool SaveVideoInfo { get; set; }
 
         public delegate void SavingDelegate(object sender, JObject root);
         public delegate void LoadingDelegate(object sender, JObject root);
@@ -81,6 +82,7 @@ namespace RuTube_downloader
             OutputFileNameFormat = Utils.FILENAME_FORMAT_DEFAULT;
             UseNumberedFileNames = true;
             SaveVideoThumbnail = true;
+            SaveVideoInfo = false;
         }
 
         public void Load()

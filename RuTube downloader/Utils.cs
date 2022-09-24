@@ -10,6 +10,8 @@ namespace RuTube_downloader
             "[<year_published>-<month_published>-<day_published> " +
             "<hour_published>-<minute_published>-<second_published>] " +
             "<video_title> (id_<video_id>)";
+        internal const string USER_AGENT_DEFAULT =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0";
 
         internal static MainConfiguration config;
 
@@ -47,6 +49,7 @@ namespace RuTube_downloader
         public string SelfDirPath { get; private set; }
         public string DownloadingDirPath { get; set; }
         public string OutputFileNameFormat { get; set; }
+        public string UserAgent { get; set; }
         public bool UseNumberedFileNames { get; set; }
         public bool SaveVideoThumbnail { get; set; }
         public bool SaveVideoInfo { get; set; }
@@ -80,6 +83,7 @@ namespace RuTube_downloader
         public void LoadDefaults()
         {
             OutputFileNameFormat = Utils.FILENAME_FORMAT_DEFAULT;
+            UserAgent = Utils.USER_AGENT_DEFAULT;
             UseNumberedFileNames = true;
             SaveVideoThumbnail = true;
             SaveVideoInfo = false;

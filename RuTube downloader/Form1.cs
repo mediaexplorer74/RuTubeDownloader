@@ -23,6 +23,7 @@ namespace RuTube_downloader
             {
                 json["downloadingDirPath"] = config.DownloadingDirPath;
                 json["outputFileNameFormat"] = config.OutputFileNameFormat;
+                json["userAgent"] = config.UserAgent;
                 json["useNumberedFileNames"] = config.UseNumberedFileNames;
                 json["saveVideoThumbnail"] = config.SaveVideoThumbnail;
                 json["saveVideoInfo"] = config.SaveVideoInfo;
@@ -38,6 +39,11 @@ namespace RuTube_downloader
                 if (jt != null)
                 {
                     config.OutputFileNameFormat = jt.Value<string>();
+                }
+                jt = json.Value<JToken>("userAgent");
+                if (jt != null)
+                {
+                    config.UserAgent = jt.Value<string>();
                 }
                 jt = json.Value<JToken>("useNumberedFileNames");
                 if (jt != null)
@@ -59,6 +65,7 @@ namespace RuTube_downloader
             {
                 textBoxDownloadingDirPath.Text = config.DownloadingDirPath;
                 textBoxFileNameFormat.Text = config.OutputFileNameFormat;
+                textBoxUserAgent.Text = config.UserAgent;
                 checkBoxUseNumberedFileNames.Checked = config.UseNumberedFileNames;
                 checkBoxSaveVideoThumbnail.Checked = config.SaveVideoThumbnail;
                 checkBoxSaveVideoInfo.Checked = config.SaveVideoInfo;
@@ -82,6 +89,7 @@ namespace RuTube_downloader
         {
             btnSearchByUrlOrId.Enabled = false;
             textBoxUrlOrId.Enabled = false;
+            textBoxUserAgent.Enabled = false;
 
             if (string.IsNullOrEmpty(textBoxUrlOrId.Text) || string.IsNullOrWhiteSpace(textBoxUrlOrId.Text))
             {
@@ -89,6 +97,7 @@ namespace RuTube_downloader
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 btnSearchByUrlOrId.Enabled = true;
                 textBoxUrlOrId.Enabled = true;
+                textBoxUserAgent.Enabled = true;
                 return;
             }
 
@@ -104,7 +113,7 @@ namespace RuTube_downloader
                 videoId = textBoxUrlOrId.Text;
             }
 
-            RuTubeAPI.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0";
+            RuTubeAPI.UserAgent = config.UserAgent;
             RuTubeAPI api = new RuTubeAPI();
             RuTubeVideo video = api.GetRuTubeVideo(videoId);
             if (video != null)
@@ -121,6 +130,7 @@ namespace RuTube_downloader
 
             textBoxUrlOrId.Enabled = true;
             btnSearchByUrlOrId.Enabled = true;
+            textBoxUserAgent.Enabled = true;
         }
 
         private void btnBrowseDownloadingDirPath_Click(object sender, EventArgs e)
@@ -145,6 +155,12 @@ namespace RuTube_downloader
             textBoxFileNameFormat.Text = FILENAME_FORMAT_DEFAULT;
         }
 
+        private void btnSetDefaultUserAgent_Click(object sender, EventArgs e)
+        {
+            config.UserAgent = USER_AGENT_DEFAULT;
+            textBoxUserAgent.Text = USER_AGENT_DEFAULT;
+        }
+
         private void textBoxDownloadingDirPath_Leave(object sender, EventArgs e)
         {
             config.DownloadingDirPath = textBoxDownloadingDirPath.Text;
@@ -153,6 +169,11 @@ namespace RuTube_downloader
         private void textBoxFileNameFormat_Leave(object sender, EventArgs e)
         {
             config.OutputFileNameFormat = textBoxFileNameFormat.Text;
+        }
+
+        private void textBoxUserAgent_Leave(object sender, EventArgs e)
+        {
+            config.UserAgent = textBoxUserAgent.Text;
         }
 
         private void checkBoxUseNumberedFileNames_CheckedChanged(object sender, EventArgs e)

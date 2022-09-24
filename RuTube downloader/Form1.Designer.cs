@@ -131,7 +131,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(659, 412);
+            this.tabControl1.Size = new System.Drawing.Size(659, 301);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPageSettings
@@ -143,7 +143,7 @@
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettings.Size = new System.Drawing.Size(651, 386);
+            this.tabPageSettings.Size = new System.Drawing.Size(651, 275);
             this.tabPageSettings.TabIndex = 0;
             this.tabPageSettings.Text = "Настройки";
             // 
@@ -326,7 +326,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 429);
+            this.ClientSize = new System.Drawing.Size(676, 318);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(500, 357);

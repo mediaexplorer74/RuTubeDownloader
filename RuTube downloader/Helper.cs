@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.IO;
-using Multi_threaded_downloader;
+using MultiThreadedDownloaderLib;
 
 namespace RuTube_downloader
 {

@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RuTubeApi;
-using Multi_threaded_downloader;
+using MultiThreadedDownloaderLib;
 using static RuTube_downloader.Utils;
-using System.Collections.Generic;
 
 namespace RuTube_downloader
 {

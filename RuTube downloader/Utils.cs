@@ -22,6 +22,12 @@ namespace RuTube_downloader
 
         internal static string FormatFileName(string fmt, RuTubeApi.RuTubeVideo video)
         {
+            if (video == null || string.IsNullOrEmpty(fmt) || string.IsNullOrWhiteSpace(fmt))
+            {
+                return "video";
+            }
+
+            string channelName = video.ChannelOwned != null ? video.ChannelOwned.Name : "unknown_channel";
             string t =
                 fmt.Replace("<year_published>", LeadZero(video.DatePublished.Year))
                 .Replace("<month_published>", LeadZero(video.DatePublished.Month))
@@ -31,7 +37,7 @@ namespace RuTube_downloader
                 .Replace("<second_published>", LeadZero(video.DatePublished.Second))
                 .Replace("<video_title>", video.Title)
                 .Replace("<video_id>", video.Id)
-                .Replace("<channel_name>", video.ChannelOwned.Name);
+                .Replace("<channel_name>", channelName);
             return t;
         }
 

@@ -15,6 +15,9 @@ namespace RuTube_downloader
         public RuTubeVideo VideoInfo { get; private set; }
         private Image Thumbnail;
 
+        public bool IsDownloading { get; private set; }
+        private bool IsCanceling = false;
+
         public FrameRuTubeVideo(Control parent, RuTubeVideo videoInfo)
         {
             InitializeComponent();
@@ -145,6 +148,12 @@ namespace RuTube_downloader
                                     break;
                                 }
                                 reporter.Report(i);
+
+                                if (IsCanceling)
+                                {
+                                    errorCode = FileDownloader.DOWNLOAD_ERROR_CANCELED_BY_USER;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -154,34 +163,34 @@ namespace RuTube_downloader
                     System.Diagnostics.Debug.WriteLine(ex.Message);
                     return 400;
                 }
-                return 200;
+                return errorCode;
             });
         }
 
         private async void OnMenuItemClick(object sender, EventArgs e)
         {
-            btnDownload.Enabled = false;
             if (string.IsNullOrEmpty(config.DownloadingDirPath) || string.IsNullOrWhiteSpace(config.DownloadingDirPath))
             {
                 MessageBox.Show("Не указана папка для скачивания!", "Ошибка!",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnDownload.Enabled = true;
                 return;
             }
             if (!Directory.Exists(config.DownloadingDirPath))
             {
                 MessageBox.Show("Папка для скачивания не найдена!", "Ошибка!",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnDownload.Enabled = true;
                 return;
             }
             if (string.IsNullOrEmpty(config.OutputFileNameFormat) || string.IsNullOrWhiteSpace(config.OutputFileNameFormat))
             {
                 MessageBox.Show("Не указан формат имени файла!", "Ошибка!",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnDownload.Enabled = true;
                 return;
             }
+
+            IsDownloading = true;
+            btnDownload.Text = "Отмена";
+            IsCanceling = false;
 
             string path = config.DownloadingDirPath.EndsWith("\\") ? config.DownloadingDirPath : config.DownloadingDirPath + "\\";
             string fixedFileName = FixFileName(FormatFileName(config.OutputFileNameFormat, VideoInfo));
@@ -217,12 +226,24 @@ namespace RuTube_downloader
             }
             else
             {
-                lblProgress.Text = $"Состояние: Ошибка {errorCode}.";
-                MessageBox.Show($"Код ошибки: {errorCode}\nГугол в помощь, как говоритса!", "Неудача! :'(",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (errorCode == FileDownloader.DOWNLOAD_ERROR_CANCELED_BY_USER)
+                {
+                    lblProgress.Text = "Состояние: Скачивание отменено!";
+                    MessageBox.Show("Скачивание отменено!", "Отменятор отменения отмены",
+                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
+                {
+                    lblProgress.Text = $"Состояние: Ошибка {errorCode}.";
+                    MessageBox.Show($"Код ошибки: {errorCode}\nГугол в помощь, как говоритса!", "Неудача! :'(",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
+            btnDownload.Text = "Скачать";
             btnDownload.Enabled = true;
+            IsDownloading = false;
+            IsCanceling = false;
         }
 
         private ContextMenuStrip BuildMenuDownloadList(IEnumerable<RuTubeVideoFormat> formats)
@@ -241,6 +262,13 @@ namespace RuTube_downloader
 
         private async void btnDownload_Click(object sender, EventArgs e)
         {
+            if (IsDownloading)
+            {
+                IsCanceling = true;
+                btnDownload.Enabled = false;
+                return;
+            }
+
             btnDownload.Enabled = false;
 
             progressBarDownload.Value = 0;

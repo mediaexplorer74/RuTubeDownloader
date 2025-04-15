@@ -1,9 +1,9 @@
 # RuTubeDownloader v1.0.0 - uwp branch
 ![Logo](Images/logo.png)
 
-Experimental RuTubeDownloader v1.0 project... simplest uwp app for RuTube API micro-testin' on my old sweet Windows Family devices! ;) 
+Experimental RuTubeDownloader... simplest uwp app for RuTube API micro-testin' on my old sweet Windows Family devices! ;) 
 
-Planned as some UWP-based Russian video service (RuTube) downloader (or viewer+downloader... I can't decide yet)
+Planned as some UWP-based Russian video service (RuTube) downloader (or viewer+downloader... I don't decide yet)
 
 
 ## Screenshot(s)
@@ -12,7 +12,7 @@ Planned as some UWP-based Russian video service (RuTube) downloader (or viewer+d
 ![Windows 11 Desktop](Images/sshot03.png)
 
 ## Status
-- I mde vry quick nd dirty .NET Stanard 14 ports of RuTubeAPI+ MultiThreadedDownloaderLib (100500 bugs still there!)
+- I made very quick and dirty .NET Standard 14 ports of RuTubeAPI+ MultiThreadedDownloaderLib (100500 bugs still there!)
 - I realized draft RuTubeDownloader UWP app 
 - Min. Win. OS build - 15063 (however, 10240 may be good too!))
 - Work-in-progress / early bird / not ready yet!

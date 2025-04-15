@@ -1,4 +1,4 @@
-# RuTubeDownloader v1.0 1.0.4 - uwp branch
+# RuTubeDownloader v1.0.0 - uwp branch
 ![Logo](Images/logo.png)
 
 Experimental RuTubeDownloader v1.0 project... simplest uwp app for RuTube API micro-testin' on my old sweet Windows Family devices! ;) 

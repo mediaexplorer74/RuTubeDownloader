@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="RuTubeDownloader.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RuTubeDownloader"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <StackPanel>
+            <TextBlock Text="Video ID:" />
+            <TextBox x:Name="VideoIdTextBox" PlaceholderText="Enter RuTube video ID" />
+
+            <TextBlock Text="Download Folder:" />
+            <TextBox x:Name="FolderPathTextBox" IsReadOnly="True" PlaceholderText="Select a folder" />
+            <Button Content="Browse" Click="BrowseButton_Click" />
+
+            <Button Content="Download" Click="DownloadButton_Click" HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Page>

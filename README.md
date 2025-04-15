@@ -1,4 +1,4 @@
-# RuTubeDownloader - master branch
+# RuTubeDownloader v1.0 - master branch
 ![](Images/logo.png)
 
 Some .NET-based Russian video service (RuTube) downloader (or viewer+downloader... idk)
@@ -9,8 +9,8 @@ Some .NET-based Russian video service (RuTube) downloader (or viewer+downloader.
 ![](Images/sshot02.png)
 
 ## Status
-- App successfully fixed & compiled /assembled by me.
-- Planning some UWP creation …. somewhere , somehow... =)
+- App successfully fixed & compiled by me, but not tested at all.
+- Planning some UWP creation...…..…..…..…..…..............…...................
 
 ## Project Architecture
 - RuTubeDownloader (App, .NET 4.8)

@@ -69,7 +69,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,7 +101,6 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\MultiThreadedDownloaderLib\MultiThreadedDownloaderLib.csproj">
       <Project>{8a493c8d-243f-97ba-f988-edb0e5c78d98}</Project>

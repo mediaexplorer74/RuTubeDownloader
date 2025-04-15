@@ -21,7 +21,7 @@ Planned as some UWP-based Russian video service (RuTube) downloader (or viewer+d
 - System mulfunction (Fake Rutube API used, RutubeAPI lib not connected properly)
 
 ## ToDo
-- Do User-friendly UI (call Deppseek or ChatPGPT ?))))
+- Do User-friendly UI (call Deepseek or ChatPGPT ?))))
 - Switch Min. Win. OS build to 10240 (Hello, W10M Astoria!)
 - Fix wrong all RuTube api responces 
 ## Conclusion

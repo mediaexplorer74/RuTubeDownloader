@@ -1,5 +1,12 @@
 # RuTubeDownloader - master branch
+![](Images/logo.png)
+
 Some .NET-based Russian video service (RuTube) downloader (or viewer+downloader... idk)
+
+
+## Screenshots
+![](Images/shot01.png)
+![](Images/shot02.png)
 
 ## Status
 - App successfully fixed & compiled by me, but not tested at all.

@@ -9,8 +9,8 @@ Some .NET-based Russian video service (RuTube) downloader (or viewer+downloader.
 ![](Images/sshot02.png)
 
 ## Status
-- App successfully fixed & compiled by me, but not tested at all.
-- Planning some UWP creation...…..…..…..…..…..............…...................
+- App successfully fixed & compiled /assembled by me.
+- Planning some UWP creation …. somewhere , somehow... =)
 
 ## Project Architecture
 - RuTubeDownloader (App, .NET 4.8)

@@ -15,7 +15,8 @@ namespace RuTube_downloader
                     using (Stream fileStream = File.OpenWrite(filePath))
                     {
                         stream.Position = 0L;
-                        return MultiThreadedDownloader.AppendStream(stream, fileStream);
+                        bool Result =  MultiThreadedDownloader.AppendStream(stream, fileStream);
+                        return Result;
                     }
                 }
                 catch (System.Exception ex)
